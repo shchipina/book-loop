@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+body {
+  background-color: #343432;
+  color: #fffdfd;
+}
+
+.App {
+  margin: 0 40px;
+}
