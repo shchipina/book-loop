@@ -2,8 +2,9 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import { getBooks } from "../api/api";
 import { useState } from "react";
 
-import { BookCard } from "../components/BookCard";
+import { BookCard } from "../components/BookCard/BookCard.jsx";
 import { useOutletContext } from "react-router-dom";
+import { SkeletonCard } from "../components/BookCard/SkeletonCard.jsx";
 
 
 export const Home = () => {
@@ -19,11 +20,17 @@ export const Home = () => {
   });
 
   if (isLoading) {
-    return <h1>Loading...</h1>
+    return (
+      <section className="grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <SkeletonCard key={i} />
+        ))}
+      </section>
+    )
   };
 
   if (isError) {
-    return <h1>Error...</h1>
+    return <h1 className="text-[64px] font-bold">Opps...😧</h1>
   };
 
   const totalPages = Math.ceil(books?.totalItems / limit) || 0;
@@ -36,16 +43,21 @@ export const Home = () => {
   return (
     <div className="my-10">
       <div className="grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {!books.items.length
-          ? <h1>Books not found, try again later</h1>
-          : (books.items?.map(book => {
-            return (
+        {!books?.items
+          ? <p className="text-center col-span-full text-lg">
+            Something went wrong or no results found. Try again later.
+          </p>
+          : books.items.length === 0
+            ? <p className="text-center col-span-full text-lg">
+              No books found. Try another search.
+            </p>
+            : books.items.map(book => (
               <BookCard
                 book={book}
                 key={book.id}
               />
-            )
-          }))}
+            ))
+        }
       </div>
 
       <div className="flex justify-center my-10">
@@ -62,7 +74,7 @@ export const Home = () => {
             <button
               key={pageNumber}
               onClick={() => setPage(pageNumber)}
-              className={`px-4 py-2 rounded ${page === pageNumber ? 'bg-amber-400 text-white' : 'bg-gray-200'}`}
+              className={`px-4 py-2 rounded ${page === pageNumber ? 'bg-amber-400 text-white' : 'bg-[#2A2A28]'}`}
             >
               {pageNumber}
             </button>

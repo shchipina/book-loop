@@ -83,15 +83,17 @@ export const BookDetails = () => {
           <p><strong>Мова:</strong> {language?.toUpperCase() || 'Невідомо'}</p>
           <p><strong>Категорії:</strong> {categories.join(', ') || 'Немає'}</p>
 
-          <a
-            href={previewLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-          >
-            Переглянути в Google Books
-          </a>
-          <FavoriteButton book={book} />
+          <div className="flex gap-3">
+            <a
+              href={previewLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+            >
+              Переглянути в Google Books
+            </a>
+            <FavoriteButton book={book} />
+          </div>
         </div>
       </div>
     </section>

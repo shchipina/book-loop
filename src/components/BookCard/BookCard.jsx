@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FavoriteButton } from "./FavoriteButton";
+import { FavoriteButton } from "../FavoriteButton";
 
 export const BookCard = ({ book }) => {
   const info = book.volumeInfo;

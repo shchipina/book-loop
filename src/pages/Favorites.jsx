@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { BookCard } from "../components/BookCard";
+import { BookCard } from "../components/BookCard/BookCard.jsx";
 
 export const Favorites = () => {
   const favoriteBooks = useSelector(state => state.favorite.books);
